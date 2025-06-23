@@ -1,6 +1,8 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 // 本文件运行于 Node.js - 请勿在此使用客户端代码（浏览器 API、JSX等）
 
@@ -28,6 +30,9 @@ const config: Config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  // Even if you don't use internationalization, you can use this field to set
+  // useful metadata like html lang. For example, if your site is Chinese, you
+  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-Hans',
     locales: ['zh-Hans'],
@@ -40,6 +45,10 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           // 指向仓库内的文档源代码
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/Ac-Wiki/Ac-Wiki/tree/docusaurus-site',
         },
@@ -63,6 +72,20 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
+
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+      crossorigin: 'anonymous',
+    },
+  ],
 
   themeConfig: {
     // Replace with your project's social card
@@ -75,11 +98,41 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tutorial',
-        },
+            type: 'docSidebar',
+            sidebarId: 'tutorialSidebar',
+            position: 'left',
+            label: '首页',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'LifeSidebar',
+            position: 'left',
+            label: '校园生活',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'AcademicSidebar',
+            position: 'left',
+            label: '学术资源',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'GrowthSidebar',
+            position: 'left',
+            label: '成长通道',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'repositorySidebar',
+            position: 'left',
+            label: '通识技能库',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'HelpSidebar',
+            position: 'right',
+            label: '共建社区',
+          },
         {to: '/blog', label: '博客', position: 'left'},
         {
           href: 'https://github.com/Ac-Wiki/Ac-Wiki',
@@ -95,8 +148,8 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: '首页',
+              to: '/docs/',
             },
           ],
         },
@@ -124,7 +177,12 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
+    themes: [
+      '@docusaurus/theme-mermaid',
+      // ...其他主题...
+    ],
   } satisfies Preset.ThemeConfig,
 };
 
 export default config;
+// You can use the following to import and use the config in your Docusaurus project
