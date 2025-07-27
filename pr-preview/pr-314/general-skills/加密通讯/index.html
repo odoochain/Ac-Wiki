@@ -2635,63 +2635,50 @@ Matrix 是一个开源的、分布式的即时通讯协议，旨在提供跨平�
   </form>
 
 
-  <!-- 
-    优化方案整合：
-    1. 内联 CSS：将平滑过渡的样式直接放在这里，无需额外文件。
-    2. 预加载：提前获取 Giscus 的亮/暗主题 CSS，消除网络延迟。
-    3. 原生事件：使用 mkdocs-material 的 JS API，实现最快的主题切换响应。
-  -->
-
-  <!-- 1. 内联 CSS，用于实现平滑的淡入淡出效果 -->
-  <style>
-    iframe.giscus-frame {
-      /* 当不透明度变化时，应用 0.3 秒的平滑动画 */
-      transition: opacity 0.3s ease-in-out;
-    }
-    iframe.giscus-frame.giscus-transition {
-      /* 在主题切换过程中，将 iframe 透明度设为 0，实现淡出效果 */
-      opacity: 0;
-    }
-  </style>
-
-  <!-- 2. 预加载 Giscus 的亮色和暗色主题 CSS -->
-  <link rel="prefetch" href="https://giscus.app/themes/light.css" as="style">
-  <link rel="prefetch" href="https://giscus.app/themes/dark.css" as="style">
-
   <h2 id="__comments">评论</h2>
-  
-  <!-- Giscus 评论系统本体 -->
+  <!-- Giscus 评论系统 -->
   <script src="https://giscus.app/client.js" data-repo="Ac-Wiki/Ac-Wiki" data-repo-id="R_kgDONCnJnA" data-category="Announcements" data-category-id="DIC_kwDONCnJnM4Cjk4S" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="1" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script>
 
-  <!-- 3. 使用 mkdocs-material 原生事件 API 的优化版同步脚本 -->
+  <!-- 
+    优化版同步脚本：
+    使用 mkdocs-material 主题的原生 JS API 监听颜色变化，
+    响应速度比 MutationObserver 更快。
+  -->
   <script>
+    // 定义一个函数，用于向 Giscus 发送主题变更消息
+    function setGiscusTheme(theme) {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: theme } } },
+          'https://giscus.app'
+        );
+      }
+    }
+
+    // 确保 mkdocs-material 的 JS 对象加载完毕
     document.addEventListener("DOMContentLoaded", function() {
-      const GiscusHost = "https://giscus.app";
+      // 获取 mkdocs-material 的颜色主题 observable 对象
+      const colorObserver = document.body.adjective.watch("color");
 
-      // 监听 mkdocs-material 的颜色主题变化事件
-      document.body._color.subscribe(function(color) {
-        const iframe = document.querySelector("iframe.giscus-frame");
-        if (!iframe) return; // 如果评论区 iframe 不存在，则不执行任何操作
-
-        // a. 添加过渡类，让 iframe 平滑地淡出
-        iframe.classList.add("giscus-transition");
-        
-        // b. 根据 mkdocs 的主题确定 Giscus 的主题
-        //    我们使用 'dark'，它通常比 'dark_dimmed' 响应更快
-        const giscusTheme = color.scheme === "slate" ? "dark" : "light";
-
-        // c. 使用一个短暂的延时来确保淡出动画有时间播放，
-        //    然后再发送主题切换消息并移除过渡类以实现淡入。
-        setTimeout(() => {
-          // 向 Giscus iframe 发送消息以更新主题
-          iframe.contentWindow.postMessage(
-            { giscus: { setConfig: { theme: giscusTheme } } },
-            GiscusHost
-          );
-          // 移除过渡类，触发 CSS transition 使 iframe 平滑淡入
-          iframe.classList.remove("giscus-transition");
-        }, 150); // 150毫秒的延迟对于视觉过渡来说是理想的
+      // 订阅颜色主题变化事件
+      colorObserver.subscribe(function(palette) {
+        // `palette.scheme` 的值是 "default" (白天) 或 "slate" (暗黑)
+        const giscusTheme = palette.scheme === 'slate' 
+          ? 'dark_dimmed' 
+          : 'light';
+        setGiscusTheme(giscusTheme);
       });
+
+      // Giscus iframe 加载可能较慢，初始加载时也尝试设置一次主题
+      // 以防用户刷新页面时主题不匹配
+      setTimeout(() => {
+        const initialScheme = document.body.getAttribute("data-md-color-scheme");
+        const initialGiscusTheme = initialScheme === 'slate' 
+          ? 'dark_dimmed' 
+          : 'light';
+        setGiscusTheme(initialGiscusTheme);
+      }, 200); // 稍微延迟以等待 iframe 加载
     });
   </script>
 
