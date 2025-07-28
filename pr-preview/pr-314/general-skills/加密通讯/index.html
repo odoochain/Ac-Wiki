@@ -2690,40 +2690,88 @@ Matrix 是一个开源的、分布式的即时通讯协议，旨在提供跨平�
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-    <div class="md-copyright__highlight">
-        &copy; 2024 - 2025
-        <a href="https://github.com/Ac-Wiki/Ac-Wiki/" target="_blank" rel="noopener noreferrer">Ac-Wiki</a
-        >
-        构建代码采用
-        <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/LICENSE" rel="noopener noreferrer">
-            MIT 许可，
-        </a>
-        如无特别声明，文档内容采用
-        <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/docs/LICENSE-CC-BY-4.0.md" rel="noopener noreferrer">
-            CC-BY-4.0 许可 </a
-        >。
-    </div>
-    <div class="page-stats">
-        本页阅读量 <span id="vercount_value_page_pv">Loading</span> 次 |
-        全站访问量 <span id="vercount_value_site_pv">Loading</span> 次 |
-        全站访客数 <span id="vercount_value_site_uv">Loading</span> 人
-        <small
-            >（<a href="https://cn.vercount.one/" target="_blank" rel="noopener noreferrer">Vercount</a
-            >）</small
-        >
-    </div>
+      <!-- 自定义样式：这些样式将自动适应亮色/暗色模式 -->
+<style>
+  .md-copyright {
+    /* 使用主题的页脚文字颜色变量，它会自动适应主题变化 */
+    color: var(--md-footer-fg-color--light);
+    font-size: 0.68rem;
+    line-height: 1.6;
+  }
+
+  /* 调整链接颜色，使用主题的“强调色” */
+  .md-copyright a {
+    color: var(--md-accent-fg-color);
+    transition: color 0.25s;
+    text-decoration: none;
+  }
+
+  /* 链接悬停效果 */
+  .md-copyright a:hover {
+    color: var(--md-accent-fg-color--dark); /* 悬停时颜色加深 */
+    text-decoration: underline;
+  }
+
+  .md-copyright__highlight {
+    margin-bottom: 0.5rem;
+  }
+
+  .page-stats {
+    margin: 0.5rem 0;
+    font-size: 0.65rem;
+  }
+  
+  /* 为备案号链接之间添加一些间距 */
+  .md-copyright .beian-links a {
+    display: inline-block;
+    margin-right: 1.5em;
+  }
+  .md-copyright .beian-links a:last-child {
+    margin-right: 0;
+  }
+</style>
+
+<!-- 2. HTML 结构 -->
+<div class="md-copyright">
+  <div class="md-copyright__highlight">
+    © 2024 - 2025
+    <a href="https://github.com/Ac-Wiki/Ac-Wiki/" target="_blank" rel="noopener noreferrer">
+      Ac-Wiki</a
+    >
+    构建代码采用
+    <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/LICENSE" rel="noopener noreferrer">
+      MIT 许可，
+    </a>
+    如无特别声明，文档内容采用
+    <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/docs/LICENSE-CC-BY-4.0.md" rel="noopener noreferrer">
+      CC-BY-4.0 许可
+    </a>。
+  </div>
+
+  <div class="page-stats">
+    本页阅读量 <span id="vercount_value_page_pv">Loading</span> 次 |
+    全站访问量 <span id="vercount_value_site_pv">Loading</span> 次 |
+    全站访客数 <span id="vercount_value_site_uv">Loading</span> 人
+    <small
+      >（<a href="https://cn.vercount.one/" target="_blank" rel="noopener noreferrer">Vercount</a
+      >）</small
+    >
+  </div>
+
+  <div>
     使用
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener noreferrer">
-        Material for MkDocs
+      Material for MkDocs
     </a>
     构建
-    <div>
-        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤 ICP 备 2024199605 号 -4</a
-        >
-        <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank" rel="noopener noreferrer">粤公网安备 44030002007268 号</a
-        >
-    </div>
+  </div>
+
+  <div class="beian-links">
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤 ICP 备 2024199605 号 -4</a
+    >
+    <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank" rel="noopener noreferrer">粤公网安备 44030002007268 号</a
+    >
+  </div>
 </div>
       
         <div class="md-social">
