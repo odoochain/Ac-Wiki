@@ -2690,114 +2690,41 @@ Matrix 是一个开源的、分布式的即时通讯协议，旨在提供跨平�
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <!-- 1. 自定义样式：定义亮色和暗色模式下的外观 -->
-<style>
-  /* 基础样式 (亮色模式) */
-  .md-copyright {
-    color: #4e4e4e; /* 默认文字颜色 */
-    font-size: 0.68rem;
-    line-height: 1.6;
-  }
-  .md-copyright a {
-    color: #00529b; /* 默认链接颜色 */
-    transition: color 0.25s;
-    text-decoration: none;
-  }
-  .md-copyright a:hover {
-    color: #003366;
-    text-decoration: underline;
-  }
-  .page-stats {
-    margin: 0.5rem 0;
-    font-size: 0.65rem;
-  }
-  .md-copyright .beian-links a {
-    display: inline-block;
-    margin-right: 1.5em;
-  }
-  .md-copyright .beian-links a:last-child {
-    margin-right: 0;
-  }
-
-  /* 暗色模式下的样式覆盖 (当 .is-dark-theme 类存在时生效) */
-  .md-copyright.is-dark-theme {
-    color: #cccccc; /* 暗色模式下的文字颜色 */
-  }
-  .md-copyright.is-dark-theme a {
-    color: #8cb4ff; /* 暗色模式下的链接颜色 */
-  }
-  .md-copyright.is-dark-theme a:hover {
-    color: #b3ceff;
-  }
-</style>
-
-<!-- 2. HTML 结构 -->
-<div class="md-copyright">
-  <div class="md-copyright__highlight">
-    © 2024 - 2025
-    <a href="https://github.com/Ac-Wiki/Ac-Wiki/" target="_blank" rel="noopener noreferrer">Ac-Wiki</a>
-    构建代码采用
-    <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/LICENSE" rel="noopener noreferrer">MIT 许可，</a>
-    如无特别声明，文档内容采用
-    <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/docs/LICENSE-CC-BY-4.0.md" rel="noopener noreferrer">CC-BY-4.0 许可</a>。
-  </div>
-
-  <div class="page-stats">
-    本页阅读量 <span id="vercount_value_page_pv">Loading</span> 次 |
-    全站访问量 <span id="vercount_value_site_pv">Loading</span> 次 |
-    全站访客数 <span id="vercount_value_site_uv">Loading</span> 人
-    <small>（<a href="https://cn.vercount.one/" target="_blank" rel="noopener noreferrer">Vercount</a>）</small>
-  </div>
-
-  <div>
+      <div class="md-copyright">
+    <div class="md-copyright__highlight">
+        &copy; 2024 - 2025
+        <a href="https://github.com/Ac-Wiki/Ac-Wiki/" target="_blank" rel="noopener noreferrer">Ac-Wiki</a
+        >
+        构建代码采用
+        <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/LICENSE" rel="noopener noreferrer">
+            MIT 许可，
+        </a>
+        如无特别声明，文档内容采用
+        <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/docs/LICENSE-CC-BY-4.0.md" rel="noopener noreferrer">
+            CC-BY-4.0 许可 </a
+        >。
+    </div>
+    <div class="page-stats">
+        本页阅读量 <span id="vercount_value_page_pv">Loading</span> 次 |
+        全站访问量 <span id="vercount_value_site_pv">Loading</span> 次 |
+        全站访客数 <span id="vercount_value_site_uv">Loading</span> 人
+        <small
+            >（<a href="https://cn.vercount.one/" target="_blank" rel="noopener noreferrer">Vercount</a
+            >）</small
+        >
+    </div>
     使用
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener noreferrer">Material for MkDocs</a>
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener noreferrer">
+        Material for MkDocs
+    </a>
     构建
-  </div>
-
-  <div class="beian-links">
-    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤 ICP 备 2024199605 号 -4</a>
-    <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank" rel="noopener noreferrer">粤公网安备 44030002007268 号</a>
-  </div>
+    <div>
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤 ICP 备 2024199605 号 -4</a
+        >
+        <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank" rel="noopener noreferrer">粤公网安备 44030002007268 号</a
+        >
+    </div>
 </div>
-
-<!-- 3. 用于同步 MkDocs 主题的 JavaScript -->
-<script>
-  // 确保脚本在 DOM 完全加载后执行
-  document.addEventListener("DOMContentLoaded", function() {
-    var copyright_div = document.querySelector(".md-copyright");
-
-    // 定义一个函数来同步主题
-    function syncTheme() {
-      // Material for MkDocs 在 body 元素上设置 data-md-color-scheme 属性
-      var is_dark = document.body.getAttribute("data-md-color-scheme") === "slate";
-
-      if (is_dark) {
-        copyright_div.classList.add("is-dark-theme");
-      } else {
-        copyright_div.classList.remove("is-dark-theme");
-      }
-    }
-
-    // 创建一个观察器实例，当检测到属性变化时调用 syncTheme 函数
-    var observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        if (mutation.type === "attributes" && mutation.attributeName === "data-md-color-scheme") {
-          syncTheme();
-        }
-      });
-    });
-
-    // 首次加载页面时，手动调用一次以设置初始主题
-    syncTheme();
-
-    // 开始观察 body 元素上的属性变化
-    observer.observe(document.body, {
-      attributes: true, // 观察属性变化
-      attributeFilter: ["data-md-color-scheme"] // 只关心这一个属性
-    });
-  });
-</script>
       
         <div class="md-social">
   
