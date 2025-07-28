@@ -2304,29 +2304,6 @@
     
     
     
-      
-  <span class="md-source-file__fact">
-    
-      
-  <span class="md-icon" title="贡献者">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
-  </span>
-  <span>GitHub</span>
-
-    
-    <nav>
-      
-        <a href="https://github.com/ztm0929" class="md-author" title="@ztm0929">
-          
-          <img src="https://avatars.githubusercontent.com/u/34964951?v=4&amp;size=72" alt="ztm0929">
-        </a>
-      
-      
-      
-    </nav>
-  </span>
-
-    
   </aside>
 
 
@@ -2440,62 +2417,23 @@
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <!-- 自定义样式：这些样式将自动适应亮色/暗色模式 -->
-<style>
-  .md-copyright {
-    /* 使用主题的页脚文字颜色变量，它会自动适应主题变化 */
-    color: var(--md-footer-fg-color--light);
-    font-size: 0.68rem;
-    line-height: 1.6;
-  }
+      <!-- 
+  这是一个包含 HTML, CSS, 和 JavaScript 的自包含解决方案。
+  它通过监听主题切换事件来确保页脚颜色与网站主题同步。
+-->
 
-  /* 调整链接颜色，使用主题的“强调色” */
-  .md-copyright a {
-    color: var(--md-accent-fg-color);
-    transition: color 0.25s;
-    text-decoration: none;
-  }
-
-  /* 链接悬停效果 */
-  .md-copyright a:hover {
-    color: var(--md-accent-fg-color--dark); /* 悬停时颜色加深 */
-    text-decoration: underline;
-  }
-
-  .md-copyright__highlight {
-    margin-bottom: 0.5rem;
-  }
-
-  .page-stats {
-    margin: 0.5rem 0;
-    font-size: 0.65rem;
-  }
-  
-  /* 为备案号链接之间添加一些间距 */
-  .md-copyright .beian-links a {
-    display: inline-block;
-    margin-right: 1.5em;
-  }
-  .md-copyright .beian-links a:last-child {
-    margin-right: 0;
-  }
-</style>
-
-<!-- 2. HTML 结构 -->
-<div class="md-copyright">
+<!-- 1. HTML 结构: 我们给主容器一个唯一的 ID 'custom-footer' 以便 JS 和 CSS 精确控制 -->
+<div id="custom-footer" class="md-copyright">
   <div class="md-copyright__highlight">
     © 2024 - 2025
-    <a href="https://github.com/Ac-Wiki/Ac-Wiki/" target="_blank" rel="noopener noreferrer">
-      Ac-Wiki</a
+    <a href="https://github.com/Ac-Wiki/Ac-Wiki/" target="_blank" rel="noopener noreferrer">Ac-Wiki</a
     >
     构建代码采用
-    <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/LICENSE" rel="noopener noreferrer">
-      MIT 许可，
-    </a>
+    <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/LICENSE" rel="noopener noreferrer">MIT 许可，</a
+    >
     如无特别声明，文档内容采用
-    <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/docs/LICENSE-CC-BY-4.0.md" rel="noopener noreferrer">
-      CC-BY-4.0 许可
-    </a>。
+    <a href="https://github.com/Ac-Wiki/Ac-Wiki/blob/main/docs/LICENSE-CC-BY-4.0.md" rel="noopener noreferrer">CC-BY-4.0 许可</a
+    >。
   </div>
 
   <div class="page-stats">
@@ -2510,9 +2448,8 @@
 
   <div>
     使用
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener noreferrer">
-      Material for MkDocs
-    </a>
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener noreferrer">Material for MkDocs</a
+    >
     构建
   </div>
 
@@ -2523,6 +2460,73 @@
     >
   </div>
 </div>
+
+<!-- 2. CSS 样式: 定义了亮色模式和暗色模式的颜色 -->
+<style>
+  /* 基础布局和字体样式 */
+  #custom-footer {
+    font-size: 0.68rem;
+    line-height: 1.6;
+    transition: color 0.25s;
+  }
+  #custom-footer a {
+    transition: color 0.25s;
+    text-decoration: none;
+  }
+  #custom-footer a:hover {
+    text-decoration: underline;
+  }
+  #custom-footer .md-copyright__highlight { margin-bottom: 0.5rem; }
+  #custom-footer .page-stats { margin: 0.5rem 0; font-size: 0.65rem; }
+  #custom-footer .beian-links a { display: inline-block; margin-right: 1.5em; }
+  #custom-footer .beian-links a:last-child { margin-right: 0; }
+
+  /* 默认 (亮色模式) 颜色 */
+  #custom-footer {
+    color: rgba(0, 0, 0, 0.54);
+  }
+  #custom-footer a {
+    color: var(--md-primary-fg-color, #005fcc); /* 使用主题主色或备用蓝色 */
+  }
+
+  /* 暗色模式的颜色 (当 .dark-mode-active 类被添加时生效) */
+  #custom-footer.dark-mode-active {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  #custom-footer.dark-mode-active a {
+    color: var(--md-accent-fg-color, #58a6ff); /* 使用主题强调色或备用亮蓝色 */
+  }
+</style>
+
+<!-- 3. JavaScript 逻辑: 监听主题变化并切换 CSS 类 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const footer = document.getElementById('custom-footer');
+    if (!footer) return; // 如果找不到页脚元素，则不执行任何操作
+
+    // 定义一个函数来检查主题并应用正确的类
+    const syncFooterTheme = () => {
+      // Material for MkDocs 通过 `data-md-color-scheme` 属性控制主题
+      const isDarkMode = document.documentElement.getAttribute('data-md-color-scheme') === 'slate';
+      if (isDarkMode) {
+        footer.classList.add('dark-mode-active');
+      } else {
+        footer.classList.remove('dark-mode-active');
+      }
+    };
+
+    // 使用 MutationObserver 监听 <html> 元素属性的变化
+    // 这是检测主题切换最快、最可靠的方法
+    const observer = new MutationObserver(syncFooterTheme);
+    observer.observe(document.documentElement, {
+      attributes: true, // 我们只关心属性变化
+      attributeFilter: ['data-md-color-scheme'] // 特别是这个属性
+    });
+
+    // 页面初次加载时，立即执行一次，以设置正确的初始状态
+    syncFooterTheme();
+  });
+</script>
       
         <div class="md-social">
   
