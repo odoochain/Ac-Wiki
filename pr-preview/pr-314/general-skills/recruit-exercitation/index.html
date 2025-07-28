@@ -2834,7 +2834,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-07-27T23:38:14+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-07-27</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2025-07-28T09:41:01+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2025-07-28</span>
   </span>
 
     
@@ -2921,36 +2921,54 @@
   </form>
 
 
-  <!-- 上面那行代码的意思是：如果页面元数据里没有定义 hide_comments，或者 hide_comments 的值不是 true，就显示下面的内容 -->
+  <!-- 预取Giscus主题CSS -->
+  <link rel="prefetch" href="https://giscus.app/themes/light.css" as="style">
+  <link rel="prefetch" href="https://giscus.app/themes/dark_dimmed.css" as="style">
   
-  <h2 id="__comments">评论</h2>
+  <h2 id="__comments">评论测试2</h2>
   <!-- Giscus 评论系统 -->
   <script src="https://giscus.app/client.js" data-repo="Ac-Wiki/Ac-Wiki" data-repo-id="R_kgDONCnJnA" data-category="Announcements" data-category-id="DIC_kwDONCnJnM4Cjk4S" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="1" data-input-position="top" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script>
 
-  <!-- 用于同步 MkDocs 主题的脚本 -->
+  <!-- 优化后的同步脚本 -->
   <script>
-    var giscus = document.querySelector("script[src*=giscus]");
-
-    // 监听主题切换事件
-    var observer = new MutationObserver(function() {
-      var theme = document.body.getAttribute("data-md-color-scheme") === "slate"
-        ? "dark_dimmed" // Giscus 的暗黑主题
-        : "light";      // Giscus 的白天主题
-
-      // 向 Giscus iframe 发送消息以更新主题
-      var iframe = document.querySelector("iframe.giscus-frame");
-      if (iframe) {
-        iframe.contentWindow.postMessage(
-          { giscus: { setConfig: { theme: theme } } },
-          "https://giscus.app"
-        );
+    // 确保DOM加载完成
+    document.addEventListener('DOMContentLoaded', function() {
+      // 设置主题的函数
+      function syncGiscusTheme() {
+        const theme = document.body.getAttribute('data-md-color-scheme') === 'slate'
+          ? 'dark_dimmed'
+          : 'light';
+        
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (iframe) {
+          iframe.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            'https://giscus.app'
+          );
+        }
       }
-    });
-
-    // 开始监听 body 元素上的属性变化
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["data-md-color-scheme"]
+      
+      // 1. 使用MkDocs的原生事件监听
+      document.addEventListener('md-palette', syncGiscusTheme);
+      
+      // 2. 添加MutationObserver作为备用
+      const observer = new MutationObserver(syncGiscusTheme);
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['data-md-color-scheme']
+      });
+      
+      // 3. 初始加载时设置主题
+      // 等待Giscus加载完成（最多等待5秒）
+      const giscusInterval = setInterval(() => {
+        if (document.querySelector('iframe.giscus-frame')) {
+          clearInterval(giscusInterval);
+          syncGiscusTheme();
+        }
+      }, 100);
+      
+      // 4. 设置超时防止无限等待
+      setTimeout(() => clearInterval(giscusInterval), 5000);
     });
   </script>
 
